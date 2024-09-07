@@ -1,4 +1,3 @@
-// controllers/userController.js
 const User = require('../models/userModel'); // Adjust the path to your model
 
 // Create a new user
@@ -24,7 +23,7 @@ exports.createUser = async (req, res) => {
   }
 };
 
-// Read user data by email
+// Read user data by email (GET by email)
 exports.getUserByEmail = async (req, res) => {
   try {
     const { email } = req.params;
@@ -39,6 +38,24 @@ exports.getUserByEmail = async (req, res) => {
   } catch (error) {
     console.error('Error fetching user:', error);
     res.status(500).json({ error: 'Failed to fetch user' });
+  }
+};
+
+// Get all users with a specific role (NEW controller method)
+exports.getUsersByRole = async (req, res) => {
+  try {
+    const { role } = req.params;
+
+    const users = await User.findAll({ where: { role } });
+
+    if (!users || users.length === 0) {
+      return res.status(404).json({ error: `No users found with the role: ${role}` });
+    }
+
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Error fetching users by role:', error);
+    res.status(500).json({ error: 'Failed to fetch users' });
   }
 };
 
