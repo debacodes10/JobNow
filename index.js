@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const userRoutes = require('./routes/userRoutes'); // Adjust the path to your routes file
 const client = require('./config/db');  // Import your PostgreSQL client
 
 const app = express();
@@ -8,8 +7,25 @@ const app = express();
 // Middleware
 app.use(bodyParser.json()); // Parse JSON request bodies
 
-// Use user routes
-app.use('/api/users', userRoutes);
+const userRoutes = require('./routes/userRoutes');
+const userProfileRoutes = require('./routes/userProfileRoutes');
+const savedJobsRoutes = require('./routes/savedJobsRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
+const notificationRoutes = require('./routes/notificationRoutes');
+const jobRoutes = require('./routes/jobRoutes');
+const feedbackRoutes = require('./routes/feedbackRoutes');
+const companyRoutes = require('./routes/companyRoutes');
+const applicationRoutes = require('./routes/applicationRoutes');
+
+app.use('/api', userRoutes);
+app.use('/api', userProfileRoutes);
+app.use('/api', savedJobsRoutes);
+app.use('/api', reviewRoutes);
+app.use('/api', notificationRoutes);
+app.use('/api', jobRoutes);
+app.use('/api', feedbackRoutes);
+app.use('/api', companyRoutes);
+app.use('/api', applicationRoutes);
 
 // Example function to run a query
 async function runQuery() {

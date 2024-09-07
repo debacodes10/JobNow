@@ -1,4 +1,4 @@
-const SavedJob = require('../models/savedJobModel'); // Adjust the path to your model
+const SavedJob = require('../models/savedJobsModel'); // Adjust the path to your model
 
 // Create a new saved job
 exports.createSavedJob = async (req, res) => {
